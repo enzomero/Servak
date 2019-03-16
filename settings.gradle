@@ -1,0 +1,6 @@
+rootProject.name = 'my-server'
+
+include 'library'
+include 'application'
+include 'model'
+include 'util'
