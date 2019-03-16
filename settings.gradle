@@ -1,6 +1,6 @@
-rootProject.name = 'my-server'
+rootProject.name = 'my_server'
 
-include 'library'
 include 'application'
 include 'model'
-include 'util'
+include 'view-app'
+include 'library'
