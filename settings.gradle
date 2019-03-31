@@ -1,6 +1,0 @@
-rootProject.name = 'my_server'
-
-include 'application'
-include 'model'
-include 'view-app'
-include 'library'
