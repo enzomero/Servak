@@ -1,14 +1,15 @@
 package com.jonny.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "person")
+@EntityListeners(AuditingEntityListener.class)
 public class Person{
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
     private String name;
@@ -16,11 +17,11 @@ public class Person{
     private String longName;
 
     private String fullName;
-/*
+
     public Person(){
-
+        //must have
     }
-
+    /*
     public Person(int id, String name, String longName, String fullName) {
         this.id = id;
         this.name = name;

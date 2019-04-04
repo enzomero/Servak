@@ -1,4 +1,4 @@
-package com.jonny.dao_api;
+package com.jonny.dao;
 
 import com.jonny.model.Person;
 import org.springframework.data.repository.CrudRepository;

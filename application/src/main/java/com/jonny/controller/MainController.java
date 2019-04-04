@@ -1,7 +1,7 @@
 package com.jonny.controller;
 
 
-import com.jonny.dao_api.PersonDao;
+import com.jonny.dao.PersonDao;
 import com.jonny.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
