@@ -6,7 +6,6 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class Bot extends TelegramLongPollingBot {
+public class LifeCounterBot extends TelegramLongPollingBot {
     @Value(value = "${bot.token}")
     private String BOT_TOKEN;
 
@@ -30,9 +29,16 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+        try {
+            updateHandler(update);
+        } catch (Exception e){
+            //todo warp it!
+        }
+
+        //TODO Remove
         System.out.println(update);
         if (update.hasMessage() && update.getMessage().getText().equals("/life"))
-            sendMsg(update.getMessage(), "<strong>"+"YOU:"+basicLife+"</strong>");
+            updateHandler(update.getMessage(), "<strong>"+"YOU:"+basicLife+"</strong>");
         else if (update.hasCallbackQuery()){
             if(update.getCallbackQuery().getData().equals("-1"))
                 basicLife--;
@@ -49,18 +55,16 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    private synchronized void sendMsg(Message msg, String s) {
-        SendMessage message = new SendMessage();
-        message.enableHtml(true);
-        message.setChatId(msg.getChatId().toString());
-        message.setText(s);
-        setInline(message);
-        try{
-            execute(message);
-            System.out.println(message);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+    /**
+     * This method should check any upd and manage answers actions
+     * @param update
+     * @throws Exception
+     */
+    private synchronized void updateHandler(Update update) throws Exception{
+        if (update.hasCallbackQuery())
+            execute(editMessageCallbackQuery(update));
+        if (update.hasMessage() && update.getMessage().getText().equals("/life"))
+            execute(sendMessage(update));
     }
 
     private synchronized void editMsg(Update update, String s) {
@@ -175,6 +179,29 @@ public class Bot extends TelegramLongPollingBot {
 
         replyKeyboardMarkup.setKeyboard(keyboard);
 
+    }
+
+    /**
+     * The method for sending messages from LifeCounterBot.
+     * @param update
+     * @return
+     */
+    private SendMessage sendMessage(Update update) {
+        SendMessage message = new SendMessage();
+        message.enableHtml(true);
+        message.setChatId(update.getMessage().getChatId().toString());
+        message.setText(s);
+        //setInline(message);
+        return message;
+    }
+
+    /**
+     * The method which will change content for messages with InlineButtons
+     * @param update - status point object for telegram.
+     * @return
+     */
+    private EditMessageText editMessageCallbackQuery(Update update) {
+        return new EditMessageText();
     }
 
     @Override

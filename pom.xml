@@ -14,5 +14,6 @@
         <module>application</module>
         <module>dao</module>
         <module>daoapi</module>
+        <module>bots</module>
     </modules>
 </project>
