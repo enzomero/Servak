@@ -20,12 +20,12 @@ import java.util.List;
 @Component
 public class LifeCounterBot extends TelegramLongPollingBot {
     @Value(value = "${bot.token}")
-    private String BOT_TOKEN;
+    private static String BOT_TOKEN;
 
     @Value(value = "${bot.username}")
-    private String BOT_NAME;
+    private static String BOT_NAME;
 
-    int basicLife = 20;
+    private static int basicLife = 20;
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -33,25 +33,6 @@ public class LifeCounterBot extends TelegramLongPollingBot {
             updateHandler(update);
         } catch (Exception e){
             //todo warp it!
-        }
-
-        //TODO Remove
-        System.out.println(update);
-        if (update.hasMessage() && update.getMessage().getText().equals("/life"))
-            updateHandler(update.getMessage(), "<strong>"+"YOU:"+basicLife+"</strong>");
-        else if (update.hasCallbackQuery()){
-            if(update.getCallbackQuery().getData().equals("-1"))
-                basicLife--;
-            if(update.getCallbackQuery().getData().equals("+1"))
-                basicLife++;
-            if(update.getCallbackQuery().getData().equals("reset"))
-                basicLife=20;
-
-            editMsg(update, "Your life is: " + basicLife);
-        }
-        else
-        {
-
         }
     }
 
@@ -62,123 +43,35 @@ public class LifeCounterBot extends TelegramLongPollingBot {
      */
     private synchronized void updateHandler(Update update) throws Exception{
         if (update.hasCallbackQuery())
-            execute(editMessageCallbackQuery(update));
+            execute(editMessageCallbackQuery(update)
+                    .setReplyMarkup(getMarkup()));
         if (update.hasMessage() && update.getMessage().getText().equals("/life"))
-            execute(sendMessage(update));
+            execute(sendMessage(update)
+                    .setReplyMarkup(getMarkup()));
     }
 
-    private synchronized void editMsg(Update update, String s) {
-        EditMessageText editMessageText = new EditMessageText();
-        editMessageText.enableHtml(true);
-        editMessageText.setChatId(update.getCallbackQuery().getMessage().getChatId());
-        editMessageText.setMessageId(update.getCallbackQuery().getMessage().getMessageId());
-        editMessageText.setText(s);
-        setInline(editMessageText);
-        try{
-            execute(editMessageText);
-            System.out.println(editMessageText);
-        }catch (Exception e){
-            e.printStackTrace();
+    /**
+     * Configured Inline UI for the message
+     * @return - inline UI for current message
+     */
+    private InlineKeyboardMarkup getMarkup(){
+        List<InlineKeyboardButton> row_buttons_1 = new ArrayList<>();
+        row_buttons_1.add(new InlineKeyboardButton().setText("-1").setCallbackData("-1"));
+        row_buttons_1.add(new InlineKeyboardButton().setText("+1").setCallbackData("+1"));
+
+        List<InlineKeyboardButton> row_buttons_2 = new ArrayList<>();
+        row_buttons_2.add(new InlineKeyboardButton().setText("Reset").setCallbackData("reset"));
+
+        List<List<InlineKeyboardButton>> inline_buttons = new ArrayList<>();
+        for (:
+             ) {
+            
         }
-    }
-
-    public synchronized void answerCallbackQuery(String callbackId, String message) {
-        AnswerCallbackQuery answer = new AnswerCallbackQuery();
-        answer.setCallbackQueryId(callbackId);
-        answer.setText(message);
-        answer.setShowAlert(true);
-        try {
-            execute(answer);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void setInline(SendMessage msg) {
-        List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
-        //first row
-        List<InlineKeyboardButton> buttons1 = new ArrayList<>();
-        buttons1.add(new InlineKeyboardButton().setText("-1").setCallbackData("-1"));
-        buttons1.add(new InlineKeyboardButton().setText("+1").setCallbackData("+1"));
-
-        //second row
-        List<InlineKeyboardButton> buttons2 = new ArrayList<>();
-        buttons2.add(new InlineKeyboardButton().setText("Reset").setCallbackData("reset"));
-
-        buttons.add(buttons1);
-        buttons.add(buttons2);
+        inline_buttons.add(row_buttons_1);
+        inline_buttons.add(row_buttons_2);
 
         InlineKeyboardMarkup markupKeyboard = new InlineKeyboardMarkup();
-
-        markupKeyboard.setKeyboard(buttons);
-        msg.setReplyMarkup(markupKeyboard);
-    }
-
-    private void setInline(EditMessageText msg) {
-        List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
-        //first row
-        List<InlineKeyboardButton> buttons1 = new ArrayList<>();
-        buttons1.add(new InlineKeyboardButton().setText("-1").setCallbackData("-1"));
-        buttons1.add(new InlineKeyboardButton().setText("+1").setCallbackData("+1"));
-
-        //second row
-        List<InlineKeyboardButton> buttons2 = new ArrayList<>();
-        buttons2.add(new InlineKeyboardButton().setText("Reset").setCallbackData("reset"));
-
-        buttons.add(buttons1);
-        buttons.add(buttons2);
-
-        InlineKeyboardMarkup markupKeyboard = new InlineKeyboardMarkup();
-
-        markupKeyboard.setKeyboard(buttons);
-        msg.setReplyMarkup(markupKeyboard);
-    }
-
-    private synchronized  void setButtons(SendMessage msg){
-        // Создаем клавиуатуру
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        msg.setReplyMarkup(replyKeyboardMarkup);
-        replyKeyboardMarkup.setSelective(true).setResizeKeyboard(true).setOneTimeKeyboard(true);
-
-        // Создаем список строк клавиатуры
-        List<KeyboardRow> keyboard = new ArrayList<>();
-
-        // Первая строчка клавиатуры
-        KeyboardRow keyboardFirstRow = new KeyboardRow();
-        keyboardFirstRow.add(new KeyboardButton().setText("Ready").setRequestContact(true));
-
-        // Добавляем все строчки клавиатуры в список
-        keyboard.add(keyboardFirstRow);
-        // и устанваливаем этот список нашей клавиатуре
-        replyKeyboardMarkup.setKeyboard(keyboard);
-    }
-
-    private synchronized  void setLifeCounter(SendMessage msg){
-        int lifeCounter = 20;
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-        msg.setReplyMarkup(replyKeyboardMarkup);
-
-        List<KeyboardRow> keyboard = new ArrayList<>();
-
-        // Первая строчка клавиатуры
-        KeyboardRow emptyRow = new KeyboardRow();
-        emptyRow.add(new KeyboardButton().setText("reset"));
-
-        // Первая строчка клавиатуры
-        KeyboardRow infoRow = new KeyboardRow();
-        infoRow.add(new KeyboardButton().setText("Your life is:"));
-        infoRow.add(new KeyboardButton().setText("" +lifeCounter));
-
-        KeyboardRow buttons = new KeyboardRow();
-        buttons.add(new KeyboardButton().setText("+1"));
-        buttons.add(new KeyboardButton().setText("-1"));
-
-        keyboard.add(emptyRow);
-        keyboard.add(infoRow);
-        keyboard.add(buttons);
-
-        replyKeyboardMarkup.setKeyboard(keyboard);
-
+        return markupKeyboard.setKeyboard(inline_buttons);
     }
 
     /**
@@ -186,12 +79,11 @@ public class LifeCounterBot extends TelegramLongPollingBot {
      * @param update
      * @return
      */
-    private SendMessage sendMessage(Update update) {
+    private synchronized SendMessage sendMessage(Update update) {
         SendMessage message = new SendMessage();
         message.enableHtml(true);
         message.setChatId(update.getMessage().getChatId().toString());
-        message.setText(s);
-        //setInline(message);
+        message.setText("<strong>"+"YOU:"+basicLife+"</strong>");
         return message;
     }
 
@@ -200,8 +92,27 @@ public class LifeCounterBot extends TelegramLongPollingBot {
      * @param update - status point object for telegram.
      * @return
      */
-    private EditMessageText editMessageCallbackQuery(Update update) {
-        return new EditMessageText();
+    private synchronized EditMessageText editMessageCallbackQuery(Update update) {
+        EditMessageText editMessageText = new EditMessageText();
+        editMessageText.enableHtml(true);
+        editMessageText.setChatId(update.getCallbackQuery().getMessage().getChatId());
+        editMessageText.setMessageId(update.getCallbackQuery().getMessage().getMessageId());
+        lifeCounter(update.getCallbackQuery().getData());
+        editMessageText.setText("<strong>"+"YOU:"+basicLife+"</strong>");
+        return editMessageText;
+    }
+
+    /**
+     * Life lifeCounter logic
+     * @param string - data string from update with callBackQuery
+     */
+    private void lifeCounter(String string){
+        if(string.equals("-1"))
+            basicLife--;
+        if(string.equals("+1"))
+            basicLife++;
+        if(string.equals("reset"))
+            basicLife=20;
     }
 
     @Override
