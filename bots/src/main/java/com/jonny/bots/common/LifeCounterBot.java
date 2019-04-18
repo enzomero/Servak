@@ -63,10 +63,6 @@ public class LifeCounterBot extends TelegramLongPollingBot {
         row_buttons_2.add(new InlineKeyboardButton().setText("Reset").setCallbackData("reset"));
 
         List<List<InlineKeyboardButton>> inline_buttons = new ArrayList<>();
-        for (:
-             ) {
-            
-        }
         inline_buttons.add(row_buttons_1);
         inline_buttons.add(row_buttons_2);
 
