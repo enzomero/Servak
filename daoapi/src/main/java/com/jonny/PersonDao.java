@@ -1,10 +1,10 @@
-package com.jonny.dao;
+package com.jonny;
 
 import com.jonny.model.Person;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository
+@Component
 public interface PersonDao extends CrudRepository<Person, Integer> {
 
 }

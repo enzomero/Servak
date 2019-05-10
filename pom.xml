@@ -12,8 +12,8 @@
         <module>view-app</module>
         <module>models</module>
         <module>application</module>
-        <module>dao</module>
         <module>daoapi</module>
         <module>bots</module>
+        <module>utils</module>
     </modules>
 </project>

@@ -1,39 +1,25 @@
 package com.jonny.model;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-@Table(name = "person")
-@EntityListeners(AuditingEntityListener.class)
-public class Person{
+public class Person {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int id;
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String name;
-
     private String longName;
-
     private String fullName;
 
-    public Person(){
-        //must have
-    }
-    /*
-    public Person(int id, String name, String longName, String fullName) {
-        this.id = id;
-        this.name = name;
-        this.longName = longName;
-        this.fullName = fullName;
-    }*/
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -1,34 +1,25 @@
 package com.jonny.controller;
 
-
-import com.jonny.dao.PersonDao;
+import com.jonny.PersonDao;
+import com.jonny.exeptions.NotFoundExeption;
 import com.jonny.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
 
-@ComponentScan
 @RestController
-@RequestMapping(path ="/main")
+@RequestMapping(path="/main")
 public class MainController {
+
     @Autowired
-    private PersonDao personDao;
+    public PersonDao personDao;
 
-    public @ResponseBody String home(){
-        return "index";
-    }
-
-    @PostMapping(path="/add")
-    public @ResponseBody String addNewPerson(@RequestParam String name){
-        Person p = new Person();
-        p.setName(name);
-        personDao.save(p);
-        return "Saved";
-    }
-
-    @GetMapping(path="/all")
-    public @ResponseBody Iterable<Person> getAllUsers() {
-        // This returns a JSON or XML with the users
+    @GetMapping(path = "/all")
+    public @ResponseBody Iterable<Person> readAll() {
         return personDao.findAll();
     }
-}
+
+    @GetMapping(path = "{id}")
+    public @ResponseBody Person getById(@PathVariable Integer id){
+        return personDao.findById(id).orElseThrow(NotFoundExeption::new);
+    }
+ }
