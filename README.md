@@ -1,3 +1,5 @@
+[![buddy pipeline](https://app.buddy.works/enzomero/servak/pipelines/pipeline/183816/badge.svg?token=29d720c92a1cb781271ebb4a0de5fcdc161652da472323efc0f42dffde6c8ba3 "buddy pipeline")](https://app.buddy.works/enzomero/servak/pipelines/pipeline/183816)
+
 **Preparing environment for WINDOWS**
     
 Scoop should be great, it helps to install next things.
