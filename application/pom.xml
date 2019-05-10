@@ -22,7 +22,7 @@
         <!--  Internal Modules  -->
         <dependency>
             <groupId>com.jonny</groupId>
-            <artifactId>daoapi</artifactId>
+            <artifactId>repository</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -35,6 +35,12 @@
             <artifactId>utils</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.jonny</groupId>
+            <artifactId>service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!--  Internal Modules  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

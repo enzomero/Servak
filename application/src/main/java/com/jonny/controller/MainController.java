@@ -1,8 +1,8 @@
 package com.jonny.controller;
 
-import com.jonny.PersonDao;
 import com.jonny.exeptions.NotFoundExeption;
 import com.jonny.model.Person;
+import com.jonny.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.*;
 public class MainController {
 
     @Autowired
-    public PersonDao personDao;
+    private CommonService commonService;
 
     @GetMapping(path = "/all")
     public @ResponseBody Iterable<Person> readAll() {
-        return personDao.findAll();
+        return commonService.readAll();
     }
 
     @GetMapping(path = "{id}")
-    public @ResponseBody Person getById(@PathVariable Integer id){
-        return personDao.findById(id).orElseThrow(NotFoundExeption::new);
+    public @ResponseBody Person getById(@PathVariable Integer id) throws NotFoundExeption{
+        return commonService.getById(id);
     }
  }
