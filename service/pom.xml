@@ -9,7 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>services</artifactId>
+    <artifactId>service</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
     <!--  Still have few questions related with lambda functions, need to clarify that   -->
     <properties>
