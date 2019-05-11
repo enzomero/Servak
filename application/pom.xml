@@ -40,8 +40,7 @@
             <artifactId>service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-
-        <!--  Internal Modules  -->
+        <!--  Spring Modules  -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

@@ -10,25 +10,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.jonny</groupId>
-    <artifactId>repository</artifactId>
+    <artifactId>utils</artifactId>
 
     <dependencies>
         <!--  Internal Modules  -->
-        <dependency>
-            <groupId>com.jonny</groupId>
-            <artifactId>models</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <!--  Spring Modules  -->
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
-            <version>2.1.5.RELEASE</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <artifactId>spring-web</artifactId>
             <version>5.1.6.RELEASE</version>
         </dependency>
     </dependencies>
+
+
 </project>
