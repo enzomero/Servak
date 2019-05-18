@@ -1,4 +1,4 @@
-package jonny.model;
+package com.jonny.model;
 
 public class Raiting {
     private int idPerson;

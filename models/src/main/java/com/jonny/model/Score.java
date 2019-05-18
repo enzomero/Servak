@@ -1,6 +1,6 @@
-package jonny.model;
+package com.jonny.model;
 
-public enum Score {
+enum Score {
     WIN,
     DRAW,
     LOSE,

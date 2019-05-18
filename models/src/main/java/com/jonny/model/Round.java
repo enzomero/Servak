@@ -1,8 +1,5 @@
-package jonny.model;
+package com.jonny.model;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Round {
     private int idPerson;
     private int idOpponent;

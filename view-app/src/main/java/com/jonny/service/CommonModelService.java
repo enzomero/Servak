@@ -28,7 +28,7 @@ public class CommonModelService {
     }
 
     public void readAll(ModelMap modelMap) {
-        modelMap.put("all", rest.getForObject(HOST + PORT + ROOT + "/all", Person[].class));
+        modelMap.put("all", rest.getForObject(HOST + PORT + ROOT + "/all", Person.class));
     }
 
 }
