@@ -16,7 +16,7 @@
         <!--  Internal Modules  -->
         <dependency>
             <groupId>com.jonny</groupId>
-            <artifactId>models</artifactId>
+            <artifactId>model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

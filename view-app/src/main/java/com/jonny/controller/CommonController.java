@@ -1,12 +1,17 @@
 package com.jonny.controller;
 
+import com.jonny.viewservice.CommonModelService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class CommonController {
+
+    @Autowired
+    private CommonModelService service;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(){
@@ -15,6 +20,7 @@ public class CommonController {
 
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public String readAll(ModelMap modelMap){
+        service.readAll(modelMap);
         return "index";
     }
 }

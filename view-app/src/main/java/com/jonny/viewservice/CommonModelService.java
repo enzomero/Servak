@@ -1,4 +1,4 @@
-package com.jonny.service;
+package com.jonny.viewservice;
 
 import com.jonny.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
