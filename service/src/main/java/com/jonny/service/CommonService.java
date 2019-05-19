@@ -1,10 +1,10 @@
 package com.jonny.service;
 
 import com.jonny.exeptions.NotFoundExeption;
-import com.jonny.model.Person;
+import com.jonny.model.User;
 
 public interface CommonService {
-    public Iterable<Person> readAll();
+    public User getById(Integer id) throws NotFoundExeption;
 
-    public Person getById(Integer id) throws NotFoundExeption;
+    public Iterable<User> readAll();
 }
